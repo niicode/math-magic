@@ -4,38 +4,29 @@ import './Calculator.css';
 import calculate from '../logic/calculate';
 import Keypad from './Keypad';
 
-export default class Calculator extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      total: null,
-      next: null,
-      operation: null,
-    };
-  }
+const Calculator = () => {
+  const [state, setState] = React.useState({
+    total: null,
+    next: null,
+    operation: null,
+  });
 
-  componentDidMount() {
-    this.handleClick('AC');
-  }
-
-  handleClick = (buttonName) => {
-    const { total, next, operation } = this.state;
-    const data = calculate({ total, next, operation }, buttonName);
-    this.setState(data);
+  const handleClick = (buttonName) => {
+    setState(calculate(state, buttonName));
   };
 
-  render() {
-    return (
-      <div className="container">
-        <div className="main">
-          <div className="num-input">{(this.state.next === null) ? this.state.total : this.state.next}</div>
-          <Keypad keypad={['AC', '+/-', '%', '÷']} clickHandler={this.handleClick} />
-          <Keypad keypad={['7', '8', '9', 'x']} clickHandler={this.handleClick} />
-          <Keypad keypad={['4', '5', '6', '-']} clickHandler={this.handleClick} />
-          <Keypad keypad={['1', '2', '3', '+']} clickHandler={this.handleClick} />
-          <Keypad keypad={['0', '.', '=']} clickHandler={this.handleClick} />
-        </div>
+  return (
+    <div className="container">
+      <div className="main">
+        <div className="num-input">{(state.next === null) ? state.total : state.next}</div>
+        <Keypad keypad={['AC', '+/-', '%', '÷']} clickHandler={handleClick} />
+        <Keypad keypad={['7', '8', '9', 'x']} clickHandler={handleClick} />
+        <Keypad keypad={['4', '5', '6', '-']} clickHandler={handleClick} />
+        <Keypad keypad={['1', '2', '3', '+']} clickHandler={handleClick} />
+        <Keypad keypad={['0', '.', '=']} clickHandler={handleClick} />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+export default Calculator;
