@@ -17,6 +17,7 @@ const Calculator = () => {
 
   return (
     <div className="container">
+      <h2>Lets do some math!</h2>
       <div className="main">
         <div className="num-input">{(state.next === null) ? state.total : state.next}</div>
         <Keypad keypad={['AC', '+/-', '%', '÷']} clickHandler={handleClick} />
